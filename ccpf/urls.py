@@ -15,24 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework import routers
-from sales.views import (
-    CreditCardNetworksViewSet,
-    OrdersViewSet,
-    PaymentsViewSet,
-    BankingHolidaysViewSet,
-)
-
-router = routers.DefaultRouter()
-router.register(r"banking-holidays", BankingHolidaysViewSet)
-router.register(r"credit-card-networks", CreditCardNetworksViewSet)
-router.register(r"orders", OrdersViewSet)
-router.register(r"payments", PaymentsViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path("sales/api/v1/", include(router.urls)),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("admin/", admin.site.urls),
+    path("", include("sales.urls"))
 ]
